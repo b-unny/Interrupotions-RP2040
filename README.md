@@ -1,2 +1,2 @@
-# Projeto-Interrup-es---BitDogLa
+# Projeto-Interrupçoes - BitDogLab
 Desenvolvimento de um projeto com a Raspberry Pi Pico W para a capacitação em Sistemas Embarcados (Embarcatech) - Cepedi. 
