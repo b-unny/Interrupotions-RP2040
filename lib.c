@@ -16,7 +16,7 @@ void blink_red_led()
 {
     gpio_put(LED_R, true);
     slepp_ms(100);
-    gpio_put(LED_R, true);
+    gpio_put(LED_R, false);
     slepp_ms(100);
 }
 
