@@ -14,9 +14,10 @@ void init_led_rgb()
 
 void blink_red_led()
 {
-    static bool state = false;
-    state = !state;
-    gpio_put(LED_R, state);
+    gpio_put(LED_R, true);
+    slepp_ms(100);
+    gpio_put(LED_R, true);
+    slepp_ms(100);
 }
 
 void init_buttons() 
