@@ -1,8 +1,4 @@
 #include "lib.h"
-#include "pico/stdlib.h"
-#include "hardware/gpio.h"
-#include "hardware/pio.h"
-#include "ws2811.pio.h"
 
 volatile int count  = 0;
 
@@ -37,7 +33,7 @@ void init_buttons()
 }
 
 // handler botao A
-void button_a_isr(uint gpio, uint32_t event
+void button_a_isr(uint gpio, uint32_t event)
 {
     count--;
     if (count <  0) count = 9;
@@ -62,16 +58,24 @@ void init_led_matrix()
 }
 
 // Atualiza a matriz para exibir um número específico
-void update_display(int number) {
-    static const uint8_t numbers[10][5][5] = {
-        {{0,1,1,1,0},{1,0,0,0,1},{1,0,0,0,1},{1,0,0,0,1},{0,1,1,1,0}}, // 0
-        {{0,0,1,0,0},{0,1,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,1,1,1,0}}, // 1
-        // Adicionar padrões para os outros números
-    };
+void update_display(int number) 
+{
+    static const uint8_t numbers[10][5][5] = { // de 0 a 9
+        {{0,1,1,1,0},{1,0,0,0,1},{1,0,0,0,1},{1,0,0,0,1},{0,1,1,1,0}}, 
+        {{0,0,1,0,0},{0,1,1,0,0},{0,0,1,0,0},{0,0,1,0,0},{0,1,1,1,0}}, 
+        {{0,1,1,1,0},{0,0,0,1,0},{0,0,1,0,0},{0,1,0,0,0},{0,1,1,1,0}},
+        {{0,1,1,1,0},{0,0,0,1,0},{0,0,1,1,0},{0,0,0,1,0},{0,1,1,1,0}}, 
+        {{0,0,0,1,0},{0,0,1,1,0},{0,1,0,1,0},{1,1,1,1,1},{0,0,0,1,0}}, 
+        {{0,1,1,1,0},{0,1,0,0,0},{0,1,1,1,0},{0,0,0,1,0},{0,1,1,1,0}}, 
+        {{0,1,1,1,0},{0,1,0,0,0},{0,1,1,1,0},{0,1,0,1,0},{0,1,1,1,0}}, 
+        {{0,1,1,1,0},{0,0,0,1,0},{0,0,1,0,0},{0,1,0,0,0},{0,1,0,0,0}}, 
+        {{0,1,1,1,0},{0,1,0,1,0},{0,1,1,1,0},{0,1,0,1,0},{0,1,1,1,0}}, 
+        {{0,1,1,1,0},{0,1,0,1,0},{0,1,1,1,0},{0,0,0,1,0},{0,1,1,1,0}}  
+};
     
     for (int row = 0; row < 5; row++) {
         for (int col = 0; col < 5; col++) {
-            set_led_matrix(row, col, numbers[number][row][col] ? 0xFFFFFF : 0x000000);
+            set_led_matrix(row, col, numbers[number][row][col] ? PASTEL_PINK : BLK);
         }
     }
 }
@@ -83,6 +87,5 @@ void set_led_matrix(int row, int col, uint32_t color) {
         put_pixel(urgb_u32((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF));
     }
 }
-
 
 
