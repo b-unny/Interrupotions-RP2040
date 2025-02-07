@@ -24,7 +24,7 @@ void button_b_isr(uint gpio, uint32_t events);
 static uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b);
 static void put_pixel(uint32_t pixel_grb);
 void init_led_matrix();
-void set_led_matrix(int row, int col, uint32_t color);
+void set_led_matrix(int index, uint32_t color);
 void update_display(int number);
 
 #endif
