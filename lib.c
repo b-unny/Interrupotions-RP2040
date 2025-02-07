@@ -156,7 +156,7 @@ void update_display(int number)
 
     
     for (int index = 0; index < NUM_LEDS; index++) 
-        set_led_matrix(numbers[number][index] ?  pastel_pink : 0);
+        set_led_matrix(index, numbers[number][index] ?  pastel_pink : 0);
 }
 
 
