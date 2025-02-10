@@ -1,7 +1,8 @@
 #include "lib.h"
 
 volatile int count  = 0;
-volatile uint32_t last_interrupt_time = 0;
+volatile uint32_t last_interrupt_time_a = 0;
+volatile uint32_t last_interrupt_time_b = 0;
 
 void init_led_rgb() 
 {
@@ -37,8 +38,8 @@ void init_buttons()
 void button_a_isr(uint gpio, uint32_t event)
 { 
     uint32_t current_time = to_ms_since_boot(get_absolute_time());
-    if (current_time - last_interrupt_time < 200) return; 
-    last_interrupt_time = current_time;
+    if (current_time - last_interrupt_time_a < 200) return; 
+    last_interrupt_time_a = current_time;
     
     count--;
     if (count <  0) count = 9;
@@ -48,8 +49,8 @@ void button_a_isr(uint gpio, uint32_t event)
 void button_b_isr(uint gpio, uint32_t events) 
 {
     uint32_t current_time = to_ms_since_boot(get_absolute_time());
-    if (current_time - last_interrupt_time < 200) return;
-    last_interrupt_time = current_time;
+    if (current_time - last_interrupt_time_b < 200) return;
+    last_interrupt_time_b = current_time;
 
     count++;
     if (count > 9) count = 0;
